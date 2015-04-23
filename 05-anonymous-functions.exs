@@ -1,6 +1,6 @@
 #####
 # 1
-# Write functions to pass the tests at the bottom.
+# Write functions to pass the tests below.
 
 list_concat = fn
   a, b -> a ++ b
