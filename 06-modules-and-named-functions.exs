@@ -100,52 +100,52 @@ IO.puts(Recursive.gcd(0, 1) == 1)
 # - Patterns can match the low and high parts of a range (`a..b = 4..8`).
 
 defmodule Chop do
-  def check_guess(actual, guess) when guess > actual do
-    :too_high
-  end
-
-  def check_guess(actual, guess) when guess < actual do
-    :too_low
-  end
-
-  def check_guess(actual, guess) when guess == actual do
-    :correct
-  end
-
-  def current_guess(min..max) do
-    diff = max - min
-    div(diff, 2) + min
-  end
-
   def guess(actual, range) do
     print_or_end(actual, range, current_guess(range))
   end
 
-  def print_actual(actual) do
+  defp check_guess(actual, guess) when guess > actual do
+    :too_high
+  end
+
+  defp check_guess(actual, guess) when guess < actual do
+    :too_low
+  end
+
+  defp check_guess(actual, guess) when guess == actual do
+    :correct
+  end
+
+  defp current_guess(min..max) do
+    diff = max - min
+    div(diff, 2) + min
+  end
+
+  defp print_actual(actual) do
     IO.puts actual
   end
 
-  def print_or_end(actual, _, current_guess) when actual == current_guess do
+  defp print_or_end(actual, _, current_guess) when actual == current_guess do
     print_guess(actual)
     print_actual(actual) 
   end
 
-  def print_or_end(actual, range, current_guess) do
+  defp print_or_end(actual, range, current_guess) do
     print_guess(current_guess)
     reduced_range = check_guess(actual, current_guess)
       |> reduce_range(range, current_guess)
     guess(actual, reduced_range)
   end
 
-  def print_guess(guess) do
+  defp print_guess(guess) do
     IO.puts "Is it #{guess}"
   end
 
-  def reduce_range(guess_result, min..max, current_guess) when guess_result == :too_high do
+  defp reduce_range(guess_result, min..max, current_guess) when guess_result == :too_high do
     min..(current_guess - 1)
   end
 
-  def reduce_range(guess_result, min..max, current_guess) when guess_result == :too_low do
+  defp reduce_range(guess_result, min..max, current_guess) when guess_result == :too_low do
     (current_guess + 1)..max
   end
 end
