@@ -157,6 +157,8 @@ end
 # (If the word _Elixir_ or _Erlang_ appears at the end of the challenge, then you'll
 # find the answer in that set of libraries.
 
+IO.puts "ModulesAndFunctions-7"
+
 # - Convert a float to a string with two decimal digits. (Erlang)
 IO.puts(:erlang.float_to_binary(3.1415, [{:decimals, 2}]) == "3.14")
 
