@@ -91,6 +91,7 @@ IO.puts(Recursive.gcd(0, 1) == 1)
 # Is it 265
 # Is it 273
 # 273
+# ```
 #
 # Hints:
 # - You may need to implement helper functions with an additional
@@ -101,51 +102,51 @@ IO.puts(Recursive.gcd(0, 1) == 1)
 
 defmodule Chop do
   def guess(actual, range) do
-    print_or_end(actual, range, current_guess(range))
+    _print_or_end(actual, range, _current_guess(range))
   end
 
-  defp check_guess(actual, guess) when guess > actual do
+  defp _check_guess(actual, guess) when guess > actual do
     :too_high
   end
 
-  defp check_guess(actual, guess) when guess < actual do
+  defp _check_guess(actual, guess) when guess < actual do
     :too_low
   end
 
-  defp check_guess(actual, guess) when guess == actual do
+  defp _check_guess(actual, guess) when guess == actual do
     :correct
   end
 
-  defp current_guess(min..max) do
+  defp _current_guess(min..max) do
     diff = max - min
     div(diff, 2) + min
   end
 
-  defp print_actual(actual) do
+  defp _print_actual(actual) do
     IO.puts actual
   end
 
-  defp print_or_end(actual, _, current_guess) when actual == current_guess do
-    print_guess(actual)
-    print_actual(actual) 
+  defp _print_or_end(actual, _, current_guess) when actual == current_guess do
+    _print_guess(actual)
+    _print_actual(actual)
   end
 
-  defp print_or_end(actual, range, current_guess) do
-    print_guess(current_guess)
-    reduced_range = check_guess(actual, current_guess)
-      |> reduce_range(range, current_guess)
+  defp _print_or_end(actual, range, current_guess) do
+    _print_guess(current_guess)
+    reduced_range = _check_guess(actual, current_guess)
+      |> _reduce_range(range, current_guess)
     guess(actual, reduced_range)
   end
 
-  defp print_guess(guess) do
+  defp _print_guess(guess) do
     IO.puts "Is it #{guess}"
   end
 
-  defp reduce_range(guess_result, min..max, current_guess) when guess_result == :too_high do
+  defp _reduce_range(guess_result, min.._max, current_guess) when guess_result == :too_high do
     min..(current_guess - 1)
   end
 
-  defp reduce_range(guess_result, min..max, current_guess) when guess_result == :too_low do
+  defp _reduce_range(guess_result, _min..max, current_guess) when guess_result == :too_low do
     (current_guess + 1)..max
   end
 end
