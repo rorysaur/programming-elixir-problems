@@ -125,7 +125,7 @@ defmodule Chop do
     IO.puts actual
   end
 
-  def print_or_end(actual, range, current_guess) when actual == current_guess do
+  def print_or_end(actual, _, current_guess) when actual == current_guess do
     print_guess(actual)
     print_actual(actual) 
   end
@@ -151,3 +151,27 @@ defmodule Chop do
 end
 
 
+######
+# 7
+# Find the library functions to do the following, and then use each in iex.
+# (If the word _Elixir_ or _Erlang_ appears at the end of the challenge, then you'll
+# find the answer in that set of libraries.
+
+# - Convert a float to a string with two decimal digits. (Erlang)
+IO.puts(:erlang.float_to_binary(3.1415, [{:decimals, 2}]) == "3.14")
+
+# - Get the value of an operating-system environment variable. (Elixir)
+IO.puts(System.get_env("PWD"))
+
+# - Return the extension component of a file name (so return `.exs` if given "dave/test.exs"). (Elixir)
+IO.puts(Path.extname("dave/test.exs") == ".exs")
+
+# - Return the process's current working directory. (Elixir)
+IO.puts(System.cwd())
+
+# - Convert a string containing JSON into Elixir data structures. (Just
+# find; don't install.)
+# => Poison.Parser.parse!(json)
+
+# - Execute a command in your operating system's shell.
+IO.inspect(System.cmd("ls", []))
