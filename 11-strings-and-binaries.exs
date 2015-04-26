@@ -25,7 +25,7 @@ defmodule MyString2 do
 
   defp _char_counts(word) do
     Enum.reduce(String.split(word, "", trim: true), %{}, fn(char, char_counts) ->
-      char_counts = Dict.update(char_counts, char, 1, fn(char_count) ->
+      char_counts = Map.update(char_counts, char, 1, fn(char_count) ->
         char_count + 1
       end)
     end)
@@ -122,16 +122,13 @@ defmodule Taxes do
     orders = File.stream!(filename)
       |> Enum.slice(1..-1)
       |> Enum.map(fn(line) ->
-        order_values = String.rstrip(line)
+        [str_id, str_ship_to, str_net_amount] = String.rstrip(line)
           |> String.split(", ")
 
-        {id, ""} = Enum.fetch!(order_values, 0)
-          |> Integer.parse()
-        ship_to = Enum.fetch!(order_values, 1)
-          |> String.slice(1..-1)
+        {id, ""} = Integer.parse(str_id)
+        ship_to = String.slice(str_ship_to, 1..-1)
           |> String.to_atom()
-        {net_amount, ""} = Enum.fetch!(order_values, 2)
-          |> Float.parse()
+        {net_amount, ""} = Float.parse(str_net_amount)
 
         [
           id: id,
